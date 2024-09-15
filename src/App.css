@@ -1,0 +1,23 @@
+.navbar.bg-custom {
+  background-color: #fa2f2f !important;
+}
+
+.titleTxt {
+  color: white;
+}
+
+.nav-link {
+  color: white !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+.nav-item {
+  padding-left: 15px !important;
+}
+
+.parentContainer {
+  height: 100%;
+  width: 100%;
+}
+

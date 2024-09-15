@@ -1,0 +1,26 @@
+.DessertParentContainer {
+    flex-grow: 1;
+    flex-direction: row;
+    padding: 20px;
+    padding-left: 30px;
+    border-radius: 10px;
+    background-color: hsl(0, 0%, 87%);
+    height: 85vh;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .DessertParentContainer .title {
+    color: black;
+    font: Arial;
+  }
+  
+  .DessertParentContainer .scrollable-dessert {
+    height: 75vh;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  

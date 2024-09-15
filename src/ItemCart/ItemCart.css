@@ -1,0 +1,29 @@
+.shoppingCartContainer {
+    flex-direction: column;
+    background-color: hsl(0, 0%, 87%);
+    height: 63vh;
+    width: 20%;
+    flex-shrink: 0;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .shoppingCartContainer .addCartContainer {
+    color: black;
+    font: Arial;
+  }
+  
+   .shoppingCartContainer .addCardContainer center .line {
+    border: 0;
+    height: 5px;
+    background-color: black;
+    border-radius: 5px;
+    width: 75%;
+  }
+  
