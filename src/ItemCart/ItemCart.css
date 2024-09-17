@@ -1,7 +1,7 @@
 .shoppingCartContainer {
     flex-direction: column;
     background-color: hsl(0, 0%, 87%);
-    height: fit-content;
+    height: 85vh;
     width: 20%;
     flex-shrink: 0;
     margin-top: 20px;
