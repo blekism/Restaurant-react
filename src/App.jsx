@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Home from "./Home/Home.jsx";
+import { useState } from "react";
 import MainDish from "./MainDish/MainDish.jsx";
 import SideDish from "./SideDish/SideDish.jsx";
 import Dessert from "./Dessert/Dessert.jsx";
@@ -9,6 +9,41 @@ import AddItem from "./AddItem/AddItem.jsx";
 import "./App.css";
 
 export default function App() {
+  const [items, setItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+
+  const addItem = (item) => {
+    setItems((prevItems) => [...prevItems, item]);
+  };
+
+  const addToCart = (item) => {
+    setCartItems((prevItems) => {
+      const existingItem = prevItems.find(
+        (cartItem) => cartItem.id === item.id
+      );
+      if (existingItem) {
+        return prevItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? {
+                ...cartItem,
+                quantity: cartItem.quantity + 1,
+                totalPrice: Number(cartItem.totalPrice) + Number(item.price),
+              }
+            : cartItem
+        );
+      } else {
+        return [
+          ...prevItems,
+          { ...item, quantity: 1, totalPrice: Number(item.price) },
+        ];
+      }
+    });
+  };
+
+  const removeFromCart = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
   return (
     <div className="parentContainer">
       <Router>
@@ -19,11 +54,6 @@ export default function App() {
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                   <Link to="/" class="nav-link">
-                    Home
-                  </Link>
-                </li>
-                <li class="nav-item">
-                  <Link to="/Dessert" class="nav-link">
                     Dessert
                   </Link>
                 </li>
@@ -52,12 +82,61 @@ export default function App() {
           </div>
         </nav>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Dessert" element={<Dessert />} />
-          <Route path="/Drinks" element={<Drinks />} />
-          <Route path="/MainDish" element={<MainDish />} />
-          <Route path="/SideDish" element={<SideDish />} />
-          <Route path="/AddItem" element={<AddItem />} />
+          <Route
+            path="/"
+            element={
+              <Dessert
+                items={items}
+                addToCart={addToCart}
+                itemInCart={cartItems}
+                removeFromCart={removeFromCart}
+              />
+            }
+          />
+          <Route
+            path="/Drinks"
+            element={
+              <Drinks
+                items={items}
+                addToCart={addToCart}
+                itemInCart={cartItems}
+                removeFromCart={removeFromCart}
+              />
+            }
+          />
+          <Route
+            path="/MainDish"
+            element={
+              <MainDish
+                items={items}
+                addToCart={addToCart}
+                itemInCart={cartItems}
+                removeFromCart={removeFromCart}
+              />
+            }
+          />
+          <Route
+            path="/SideDish"
+            element={
+              <SideDish
+                items={items}
+                addToCart={addToCart}
+                itemInCart={cartItems}
+                removeFromCart={removeFromCart}
+              />
+            }
+          />
+          <Route
+            path="/AddItem"
+            element={
+              <AddItem
+                addItem={addItem}
+                addToCart={addToCart}
+                itemInCart={cartItems}
+                removeFromCart={removeFromCart}
+              />
+            }
+          />
         </Routes>
       </Router>
     </div>

@@ -1,7 +1,7 @@
 .shoppingCartContainer {
     flex-direction: column;
     background-color: hsl(0, 0%, 87%);
-    height: 63vh;
+    height: fit-content;
     width: 20%;
     flex-shrink: 0;
     margin-top: 20px;
@@ -12,11 +12,15 @@
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
+    overflow-y: auto;
   }
   
   .shoppingCartContainer .addCartContainer {
     color: black;
     font: Arial;
+    display: flex;
+  flex-direction: column;
+  height: 100%;
   }
   
    .shoppingCartContainer .addCardContainer center .line {
@@ -26,4 +30,9 @@
     border-radius: 5px;
     width: 75%;
   }
+
+  .shoppingCartContainer .addCartContainer center .totalTxt{
+    margin-top: auto;
+  }
+
   

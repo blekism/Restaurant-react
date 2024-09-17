@@ -1,5 +1,5 @@
-.DessertParentContainer {
-    width: 100%;
+.DrinksParentContainer {
+    flex-grow: 1;
     flex-direction: row;
     padding: 20px;
     padding-left: 30px;
@@ -11,12 +11,12 @@
     margin-bottom: 20px;
   }
   
-  .DessertParentContainer .title {
+  .DrinksParentContainer .title {
     color: black;
     font: Arial;
   }
   
-  .DessertParentContainer .scrollable-dessert {
+  .DrinksParentContainer .scrollable-drinks {
     height: 75vh;
     overflow-y: auto;
     display: flex;
