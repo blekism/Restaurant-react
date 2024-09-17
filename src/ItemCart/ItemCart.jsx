@@ -18,6 +18,7 @@ export default function ItemCart({ cartItems, removeFromCart }) {
                     <h4>{cart.name}</h4>
                     <p>Price: {cart.price}</p>
                     <p>Quantity: {cart.quantity}</p>
+                    <p>Category: {cart.category}</p>
                     <button onClick={() => removeFromCart(cart.id)}>
                       Remove
                     </button>

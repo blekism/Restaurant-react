@@ -49,7 +49,7 @@ export default function App() {
       <Router>
         <nav class="navbar navbar-expand-lg navbar-light bg-custom">
           <div class="container-fluid">
-            <h2 className="titleTxt">Shopee To pre</h2>
+            <h2 className="titleTxt">Restaurant Management System</h2>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
