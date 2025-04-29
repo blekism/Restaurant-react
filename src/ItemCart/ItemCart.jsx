@@ -1,38 +1,43 @@
 import React from "react";
+import ItemTemplate from "./../ItemTemplate"; // Importing the ItemTemplate component
 import "./ItemCart.css";
-// import Items from "./ItemInCart.jsx";
 
 export default function ItemCart({ cartItems, removeFromCart }) {
-  return (
-    <>
-      <div className="shoppingCartContainer">
-        <div className="addCartContainer">
-          <center>
-            <h3 className="addItem">Your Cart!</h3>
-            <hr className="line" />
+  // Ensure cartItems is defined and is an array before trying to access its length
+  if (!Array.isArray(cartItems)) {
+    cartItems = [];
+  }
 
-            <ul>
-              {cartItems.map((cart) => (
-                <li key={cart.id}>
-                  <div className="cartItem">
-                    <h4>{cart.name}</h4>
-                    <p>Price: {cart.price}</p>
-                    <p>Quantity: {cart.quantity}</p>
-                    <p>Category: {cart.category}</p>
-                    <button onClick={() => removeFromCart(cart.id)}>
-                      Remove
-                    </button>
+  return (
+    <div className="shoppingCartContainer">
+      <div className="addCartContainer">
+          <h3 className="addItem">Your Cart!</h3>
+          <hr className="line" />
+
+          {/* Check if there are any items in the cart */}
+          {cartItems.length > 0 ? (
+            <div className="cartItemsWrapper">
+              <div className="scrollable-cart">
+                {cartItems.map((cart) => (
+                  <div className="cartCard" key={cart.id}>
+                    <ItemTemplate
+                      img={cart.image}  // Passing image to ItemTemplate
+                      foodName={cart.name}  // Passing food name to ItemTemplate
+                      price={`$${cart.price}`}  // Passing price formatted as a string
+                      addToCart={() => removeFromCart(cart.id)}  // Passing remove from cart function
+                    />
                   </div>
-                </li>
-              ))}
-            </ul>
-            <h3 className="totalTxt">
-              Total Price:{" "}
-              {cartItems.reduce((acc, item) => acc + item.totalPrice, 0)}
-            </h3>
-          </center>
-        </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
+
+          <h3 className="totalTxt">
+            Total Price: ${cartItems.reduce((acc, item) => acc + item.totalPrice, 0).toFixed(2)}
+          </h3>
       </div>
-    </>
+    </div>
   );
 }

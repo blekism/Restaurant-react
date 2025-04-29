@@ -1,38 +1,45 @@
 .shoppingCartContainer {
-    flex-direction: column;
-    background-color: hsl(0, 0%, 87%);
-    height: 85vh;
-    width: 20%;
-    flex-shrink: 0;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    border-radius: 10px;
-    padding: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: auto;
-  }
-  
-  .shoppingCartContainer .addCartContainer {
-    color: black;
-    font: Arial;
-    display: flex;
-  flex-direction: column;
-  height: 100%;
-  }
-  
-   .shoppingCartContainer .addCardContainer center .line {
-    border: 0;
-    height: 5px;
-    background-color: black;
-    border-radius: 5px;
-    width: 75%;
-  }
+  flex-grow: 1;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 87%);
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
 
-  .shoppingCartContainer .addCartContainer center .totalTxt{
-    margin-top: auto;
-  }
+.addCartContainer {
+  text-align: center;
+}
 
-  
+.addItem {
+  color: black;
+  font: Arial, sans-serif;
+}
+
+.line {
+  width: 100%;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.cartItemsWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.scrollable-cart {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-y: auto;
+  width: 100%;
+  height: 60vh;
+}
+
+.cartCard {
+  margin: 10px;
+  width: 18rem;
+  height: fit-content;
+}
