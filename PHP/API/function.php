@@ -630,3 +630,40 @@ function ApplySeller($applicationInput)
         ]);
     }
 }
+
+function readStock()
+{
+    global $con;
+
+    $query = "SELECT s.*, p.product_name 
+              FROM stock_tbl s
+              JOIN products_tbl p ON s.product_id = p.product_id";
+    $result = mysqli_query($con, $query);
+
+    if (!$result) {
+        return json_encode([
+            'status' => 500,
+            'message' => 'Failed to fetch stock information',
+        ]);
+    }
+
+    if (mysqli_num_rows($result) > 0) {
+        $stock = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $stock[] = $row;
+        }
+
+        return json_encode([
+            'status' => 200,
+            'message' => 'Stock retrieved successfully',
+            'data' => $stock,
+        ]);
+    } else {
+        return json_encode([
+            'status' => 404,
+            'message' => 'No stock information found',
+            'data' => [],
+        ]);
+    }
+}

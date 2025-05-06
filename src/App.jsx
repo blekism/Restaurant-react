@@ -8,6 +8,7 @@ import AddItem from "./AddItem/AddItem.jsx";  // Page to Add New Item
 import ProtectedRoute from "./ProtectedRoute.jsx"; // Import the protected route component
 import "./App.css";
 import SellerApply from "./SellerApply/SellerApplyPage.jsx";
+import StockPage from "./stockpage/readstock.jsx";
 
 function AppContent() {
   // ... existing state and functions (items, cartItems, addItem, addToCart, removeFromCart) ...
@@ -42,6 +43,13 @@ function AppContent() {
                     <li className="nav-item">
                       <Link to="/AddItem" className="nav-link">
                         Add Item
+                      </Link>
+                    </li>
+                  )}
+                  {userRole === 'seller' && ( // Assuming 'admin' is the required role
+                    <li className="nav-item">
+                      <Link to="/stockpage" className="nav-link">
+                        Stock
                       </Link>
                     </li>
                   )}
@@ -84,6 +92,10 @@ function AppContent() {
           <Route
             path="/AddItem"
             element={<AddItem />} // Pass the addItem prop
+          />
+          <Route
+            path="/stockpage"
+            element={<StockPage />} // Pass the addItem prop
           />
         </Route>
         <Route element={<ProtectedRoute requiredRole="buyer" redirectPath="/MainDish" />}>

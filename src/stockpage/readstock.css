@@ -1,0 +1,20 @@
+.stock-page-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table {
+    margin-bottom: 0; /* Remove default bottom margin if container handles spacing */
+  }
+  
+  .table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .table thead.table-dark th {
+    background-color: #343a40; /* Bootstrap dark header */
+    color: white;
+  }
