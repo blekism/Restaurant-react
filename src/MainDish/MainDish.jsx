@@ -3,15 +3,15 @@ import "./MainDish.css";
 import MainDishContainer from "./MainDishContainer.jsx";
 
 export default function MainDish({
-  items,
+  // items prop is removed as MainDishContainer fetches its own data
   addToCart,
-  itemInCart,
-  removeFromCart,
-  totalPrice,
+  // Other props like itemInCart, removeFromCart, totalPrice might still be needed
+  // depending on where cart logic resides, but are not used by MainDishContainer directly.
 }) {
   return (
     <div className="MainDishWrapper">
-      <MainDishContainer MainDishProp={items} addToCart={addToCart} />
+      {/* Pass only the necessary props */}
+      <MainDishContainer addToCart={addToCart} />
     </div>
   );
 }

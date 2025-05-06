@@ -5,94 +5,97 @@ import SideDish from "./SideDish/SideDish.jsx";
 import Dessert from "./Dessert/Dessert.jsx"; // Login page
 import Drinks from "./Drinks/Drinks.jsx"; // Register page
 import AddItem from "./AddItem/AddItem.jsx";  // Page to Add New Item
+import ProtectedRoute from "./ProtectedRoute.jsx"; // Import the protected route component
 import "./App.css";
+import SellerApply from "./SellerApply/SellerApplyPage.jsx";
 
 function AppContent() {
-  const [items, setItems] = useState([]);
-  const [cartItems, setCartItems] = useState([]);  // Initialize as an empty array
+  // ... existing state and functions (items, cartItems, addItem, addToCart, removeFromCart) ...
 
-  // Add item function
-  const addItem = (item) => {
-    setItems((prevItems) => [...prevItems, item]);
-  };
-
-  // Add to cart function (already in use)
-  const addToCart = (item) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find(
-        (cartItem) => cartItem.id === item.id
-      );
-      if (existingItem) {
-        return prevItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? {
-                ...cartItem,
-                quantity: cartItem.quantity + 1,
-                totalPrice: Number(cartItem.totalPrice) + Number(item.price),
-              }
-            : cartItem
-        );
-      } else {
-        return [
-          ...prevItems,
-          { ...item, quantity: 1, totalPrice: Number(item.price) },
-        ];
-      }
-    });
-  };
-
-  const removeFromCart = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
+  // --- Determine if Navbar links should be shown based on login status/role ---
+  // You might want to hide Add Item link if user doesn't have the role
+  const userRole = localStorage.getItem('user_role');
+  const isLoggedIn = !!localStorage.getItem('user_id'); // Check if user_id exists
 
   return (
     <div className="parentContainer">
       <nav className="navbar navbar-expand-lg navbar-light bg-custom">
         <div className="container-fluid">
-          <h2 className="titleTxt">Restaurant Management System</h2>
+          <h2 className="titleTxt">Ecommerce System</h2>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <Link to="/MainDish" className="nav-link">
-                  Homepage
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/SideDish" className="nav-link">
-                  Your Cart
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/AddItem" className="nav-link">
-                  Add Item
-                </Link>
-              </li>
+              {/* Conditionally show links based on login status */}
+              {isLoggedIn && (
+                <>
+                  <li className="nav-item">
+                    <Link to="/MainDish" className="nav-link">
+                      Homepage
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/SideDish" className="nav-link">
+                      Your Cart
+                    </Link>
+                  </li>
+                  {/* Conditionally show Add Item link based on role */}
+                  {userRole === 'seller' && ( // Assuming 'admin' is the required role
+                    <li className="nav-item">
+                      <Link to="/AddItem" className="nav-link">
+                        Add Item
+                      </Link>
+                    </li>
+                  )}
+                  {userRole === 'buyer' && ( // Assuming 'admin' is the required role
+                    <li className="nav-item">
+                      <Link to="/Apply" className="nav-link">
+                        Apply as Seller
+                      </Link>
+                    </li>
+                  )}
+                  {/* Add a Logout button here */}
+                </>
+              )}
             </ul>
           </div>
         </div>
       </nav>
 
       <Routes>
-        <Route
-          path="/"
-          element={<Dessert />}
-        />
-        <Route
-          path="/Drinks"
-          element={<Drinks />}
-        />
+        {/* Public Routes */}
+        <Route path="/" element={<Dessert />} /> {/* Login */}
+        <Route path="/Drinks" element={<Drinks />} /> {/* Register */}
+
+        {/* Routes requiring login (can be further protected if needed) */}
+        {/* Consider wrapping these in another ProtectedRoute checking just for login status */}
         <Route
           path="/MainDish"
-          element={<MainDish items={items} addToCart={addToCart} />}
+          // Pass necessary props - remove 'items' if MainDish fetches its own
+          element={<MainDish />}
         />
         <Route
           path="/SideDish"
-          element={<SideDish itemInCart={cartItems} removeFromCart={removeFromCart} />}
-          />
-        <Route
-          path="/AddItem"
-          element={<AddItem addItem={addItem} />}
+          // Pass necessary props - remove 'itemInCart' if SideDish fetches its own
+          element={<SideDish  />}
         />
+
+        {/* Protected Route for AddItem */}
+        <Route element={<ProtectedRoute requiredRole="seller" redirectPath="/MainDish" />}>
+          {/* The element to render if the role check passes */}
+          <Route
+            path="/AddItem"
+            element={<AddItem />} // Pass the addItem prop
+          />
+        </Route>
+        <Route element={<ProtectedRoute requiredRole="buyer" redirectPath="/MainDish" />}>
+          {/* The element to render if the role check passes */}
+          <Route
+            path="/Apply"
+            element={<SellerApply />} // Pass the addItem prop
+          />
+        </Route>
+
+        {/* Optional: Add a catch-all route or a specific "Not Found" page */}
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
   );

@@ -22,9 +22,9 @@ if ($requestMethod == "POST") {
     $inputData = json_decode(file_get_contents("php://input"), true);
 
     if (empty($inputData)) {
-        $addToStock = addToCart($_POST);
+        $addToStock = ApplySeller($_POST);
     } else {
-        $addToStock = addToCart($inputData);
+        $addToStock = ApplySeller($inputData);
     }
     echo $addToStock;
     exit();

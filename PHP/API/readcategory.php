@@ -1,7 +1,8 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Methods: GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Request-With');
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
@@ -12,21 +13,13 @@ include('./function.php');
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 if ($requestMethod == "OPTIONS") {
-    // Send a 200 OK response for preflight requests
     http_response_code(200);
     exit();
 }
 
-if ($requestMethod == "POST") {
-
-    $inputData = json_decode(file_get_contents("php://input"), true);
-
-    if (empty($inputData)) {
-        $addToStock = addToCart($_POST);
-    } else {
-        $addToStock = addToCart($inputData);
-    }
-    echo $addToStock;
+if ($requestMethod == "GET") {
+    $response = readCategories();
+    echo $response;
     exit();
 } else {
     $data = [
